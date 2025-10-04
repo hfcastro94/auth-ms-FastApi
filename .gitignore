@@ -11,10 +11,6 @@ venv/
 .env/
 *.env
 
-# Docker
-docker-compose.yml
-Dockerfile
-
 # IDEs y editores
 .vscode/
 .idea/
