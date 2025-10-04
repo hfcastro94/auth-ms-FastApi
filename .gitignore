@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Entorno virtual
+.env
+venv/
+.env/
+*.env
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# IDEs y editores
+.vscode/
+.idea/
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Cachés
+*.egg-info/
+.cache/
+dist/
+build/
+
+# Otros
+*.sqlite3
