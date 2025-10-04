@@ -18,7 +18,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class AuthService:
     @staticmethod
-    def register(e_mail: str, password: str, type_user: str = "basic"):
+    def register(e_mail: str, password: str):
         """Registra un nuevo usuario y lo asocia a su tipo en auth_ms_type_user"""
         repo = AuthRepository(get_dynamo_client())
 
@@ -34,13 +34,10 @@ class AuthService:
             e_mail=e_mail,
             hashed_password=hashed,
             salt='',
-            type_user=type_user,
             state=True
         )
         repo.create_user(user)
 
-        # Asociar el correo al tipo de usuario en auth_ms_type_user
-        repo.add_email_to_type_user(type_user, e_mail)
 
         return user
 
@@ -57,7 +54,7 @@ class AuthService:
             return None
 
         expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-        payload = {"sub": user.e_mail, "exp": expire, "type_user": user.type_user}
+        payload = {"sub": user.e_mail, "exp": expire}
 
         # Crear JWT
         jwt_token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
