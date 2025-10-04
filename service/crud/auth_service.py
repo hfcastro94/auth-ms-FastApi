@@ -73,14 +73,14 @@ class AuthService:
         return jwt_token
 
     @staticmethod
-    def verify_token(token: str) -> str | None:
+    def verify_token(token: str) -> bool | None:
         """Valida un token JWT y retorna el email del usuario si es válido"""
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            return payload.get("sub")
+            return True
         except jwt.ExpiredSignatureError:
             print("⛔ Token expirado")
-            return None
+            return False
         except jwt.InvalidTokenError:
             print("❌ Token inválido")
-            return None
+            return False

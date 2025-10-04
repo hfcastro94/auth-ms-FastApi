@@ -22,3 +22,7 @@ def login(data: LoginInput):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return {"Access Granted":data.e_mail, "Access_token": token, "token_type": "bearer"}
     
+
+@router.get("/validate-token")
+def validatetoken(data:str):
+    return AuthService.verify_token(data)
